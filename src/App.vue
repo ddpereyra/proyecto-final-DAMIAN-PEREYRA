@@ -47,59 +47,67 @@ export default {
     const listadoItems = [
       {
         id: 1,
-        title: 'Item 1',
-        resume: 'Resumen del item 1',
-        price: 100,
-        detail: 'Todo detallado sobre el item 1'
+        title: 'Mix Clasico',
+        resume: 'Sin guarnicion',
+        price: 750,
+        detail: `Cuadradito de milanesa de carne y pollo, bastones de muzzarella, salsa fileto + gaseosa`,
+        imagen: 'mixClasico.jpeg'
       },
       {
         id: 2,
-        title: 'Item 2',
-        resume: 'Resumen del item 2',
-        price: 200,
-        detail: 'Todo detallado sobre el item 2'
+        title: 'Sandwich Clasico',
+        resume: 'Sin guarnicion',
+        price: 700,
+        detail: `Un clasico! Sandwich de milanesa de Peceto o Pollo con lechuga y tomate + bebida`,
+        imagen: 'milaClasico.webp'
       },
       {
         id: 3,
-        title: 'Item 3',
-        resume: 'Resumen del item 3',
-        price: 300,
-        detail: 'Todo detallado sobre el item 3'
+        title: 'Mila Cheddar',
+        resume: 'Sin guarnicion',
+        price: 850,
+        detail: `2 medallones de Peceto o Pollo cheddar + Bebida`,
+        imagen: 'milaCheddar.jpeg'
       },
       {
         id: 4,
-        title: 'Item 4',
-        resume: 'Resumen del item 4',
-        price: 400,
-        detail: 'Todo detallado sobre el item 4'
+        title: 'Mix a Caballo',
+        resume: 'Sin guarnicion',
+        price: 900,
+        detail: `Una combinacion de sabores con nuestros tradicionales cuadritos de Pollo y Ternera + bebida. Decidi si lo queres con CHEDDAR o A CABALLO`,
+        imagen: 'mixCaballo.webp'
       },
       {
         id: 5,
-        title: 'Item 5',
-        resume: 'Resumen del item 5',
-        price: 500,
-        detail: 'Todo detallado sobre el item 5'
+        title: 'Mila Napo',
+        resume: 'Con guarnicion',
+        price: 1000,
+        detail: `2 medallones de Peceto o de Pollo napolitanom, viene con papas fritas y bebida`,
+        imagen: 'milaNapo.webp'
       },
       {
         id: 6,
-        title: 'Item 6',
-        resume: 'Resumen del item 6',
-        price: 600,
-        detail: 'Todo detallado sobre el item 6'
+        title: 'Mila Clasica',
+        resume: 'Con guarnicion',
+        price: 800,
+        detail: `2 medallones de Peceto o Pollo clasicos, viene con papas fritas y bebida`,
+        imagen: 'milaClasica.jpeg'
       },
       {
         id: 7,
-        title: 'Item 7',
-        resume: 'Resumen del item 7',
-        price: 700,
-        detail: 'Todo detallado sobre el item 7'
+        title: 'Pollo NAPO',
+        resume: 'Con guarnicion',
+        price: 950,
+        detail: `Medallones pollo napolitacion con papas fritas. SIN BEBIDA`,
+        imagen: 'polloNapo.jpeg'
       },
       {
         id: 8,
-        title: 'Item 8',
-        resume: 'Resumen del item 8',
-        price: 800,
-        detail: 'Todo detallado sobre el item 3'
+        title: 'Wrap de Pollo',
+        resume: 'Con guarnicion',
+        price: 950,
+        detail: `Tortilla mexicana con base de guacamole, mix de hojas verdes, milanesitas de pollo, cebolla caramelizada y tomate confitado. Viene con nachos y bebida`,
+        imagen: 'wrapPollo.jpeg'
       }
     ]
     const usuariosRegistrados = [

@@ -4,15 +4,15 @@
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{producto.title}}</h5>
+                    <h5 class="card-text text-success">${{producto.price}}</h5>
                     <button type="button" class="btn-close" aria-label="Close" @click="closeDetail"></button>
                 </div>
                 <div class="modal-body">
-                <img class="card-img-top" src="../../imgs/box.jpeg" alt="Card image cap">
+                <img class="imgDetail" :src="require(`../../imgs/Products/${producto.imagen}`)">
                 <p> {{producto.detail}} </p>
                 </div>
                 <div class="modal-footer">
-                    <h3 class="card-text text-success">Precio unitario: $ {{producto.price}}</h3>
+                    <button v-if="!esAdmin" type="button" class="btn btn-success m-1" @click="ShowCart">Comprar/Agregar</button>
                 </div>
             </div>
             </div>
@@ -40,3 +40,9 @@
     }
 }
 </script>
+<style>
+.imgDetail {
+    width: 300px;
+    header: 300px;
+}
+</style>

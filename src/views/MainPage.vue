@@ -8,13 +8,15 @@
       <div class="row m-5">
           <div v-for="(item) in listado" :key="item.id" class="col-sm-3">
               <div class="card m-2 border-success">
-                  <img class="card-img-top" src="../imgs/box.jpeg" alt="Card image cap">
                   <div class="card-body">
+                  <img v-if="item.imagen" class="imgCard" :src="require(`../imgs/Products/${item.imagen}`)">
                       <h5 class="card-title">{{item.title}}</h5>
                       <p class="card-text">{{item.resume}}</p>
                       <h3 class="card-text text-success">$ {{item.price}}</h3>
-                      <button type="button" class="btn btn-success m-1" @click="showDetail(item)">Ver detalle</button>
-                      <button type="button" class="btn btn-danger m-1" @click="ShowCart">Comprar/Agregar</button>
+                      <button v-if="!esAdmin" type="button" class="btn btn-info m-1" @click="showDetail(item)">Ver detalle</button>
+                      <button v-if="!esAdmin" type="button" class="btn btn-success m-1" @click="alert()">Comprar/Agregar</button>
+                      <button v-if="esAdmin" type="button" class="btn btn-warning m-1" @click="alert()">Modificar</button>
+                      <button v-if="esAdmin" type="button" class="btn btn-danger m-1" @click="alert()">Eliminar</button>
                   </div>
               </div>
           </div>
@@ -66,7 +68,17 @@ export default {
     },
     logout() {
       this.$emit("logout")
+    },
+    alert() {
+      alert("Entro")
     }
   }
 }
 </script>
+<style>
+.imgCard {
+    width: 150px;
+    height: 150px;
+    border-radius:600px;
+}
+</style>
