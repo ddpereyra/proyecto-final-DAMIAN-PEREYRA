@@ -15,18 +15,20 @@
                       <h3 class="card-text text-success">$ {{item.price}}</h3>
                       <button v-if="!esAdmin" type="button" class="btn btn-info m-1" @click="showDetail(item)">Ver detalle</button>
                       <button v-if="!esAdmin" type="button" class="btn btn-success m-1" @click="alert()">Comprar/Agregar</button>
-                      <button v-if="esAdmin" type="button" class="btn btn-warning m-1" @click="alert()">Modificar</button>
-                      <button v-if="esAdmin" type="button" class="btn btn-danger m-1" @click="alert()">Eliminar</button>
+                      <button v-if="esAdmin" type="button" class="btn btn-warning m-1" @click="showModItem(item)">Modificar</button>
+                      <button v-if="esAdmin" type="button" class="btn btn-danger m-1" @click="eliminarItem(item)">Eliminar</button>
                   </div>
               </div>
           </div>
       </div>
-      <ItemDetail v-if="seeDetail" :producto="producto" @closeDetail="closeModalDetail" />
+      <ItemDetail v-if="seeDetail" :producto="producto" :esAdmin="esAdmin" @closeDetail="closeModalDetail" />
+      <ItemMod v-if="seeMod" :producto="producto" @closeDetail="closeModalMod" />
       <ShoppingCart v-if="seeCart" @closeCart="closeModalCart" />
     </div>
 </template>
 <script>
 import ItemDetail from './Detail/ItemDetail.vue'
+import ItemMod from './Detail/ItemMod.vue'
 import ShoppingCart from './Cart/ShoppingCart.vue'
 import Cabecera from '../components/Cabecera'
 /* eslint-disable */ 
@@ -35,6 +37,7 @@ export default {
   components: {
     Cabecera,
     ItemDetail,
+    ItemMod,
     ShoppingCart
   },
   props: {
@@ -44,10 +47,13 @@ export default {
   },
   data() {
     const seeDetail = false
+    const seeMod = false
     const seeCart = false
     const producto = null
     return {
       seeDetail,
+      seeMod,
+      producto,
       seeCart
     }
   },
@@ -60,6 +66,14 @@ export default {
         this.seeDetail = false
         this.producto = null
     },
+    showModItem(item) {
+        this.seeMod = true
+        this.producto = item
+    },
+    closeModalMod() {
+        this.seeMod = false
+        this.producto = null
+    },
     ShowCart() {
         this.seeCart = true
     },
@@ -68,6 +82,11 @@ export default {
     },
     logout() {
       this.$emit("logout")
+    },
+    eliminarItem(item){
+      if(confirm(`Desea eliminar ${item.title}?`)){
+        this.$props.listado = this.$props.listado.filter(function(i) { return i !== item })
+      }
     },
     alert() {
       alert("Entro")
