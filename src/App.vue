@@ -1,11 +1,27 @@
 <template>
   <div id="app" class="divApp">
     <img alt="Vue logo" src="./assets/logoAux.jpeg" v-show="!loginOk">
-    <div class="divLogin" v-show="!loginOk">
-      <LoginPage :Username="Username" :Password="Password" @LoginOk="LoginOk" />
+    <div class="divLoginRegister">
+      <LoginPage v-show="verLogin"
+        :Username="Username" 
+        :Password="Password" 
+        :UsuariosRegistrados="usuariosRegistrados"
+        @LoginOk="LoginOk" 
+        @Registrarse="Registrarse"
+      />
+      <RegisterPage v-show="verRegister"
+        :UsuariosRegistrados="usuariosRegistrados"
+        @RegistroTerminado="RegistroTerminado"
+        @Login="logout"
+      />
     </div>
-    <div class="divMain" v-show="loginOk">
-      <MainPage :listado="listadoItems" />
+    <div class="divMain" v-if="loginOk">
+      <MainPage 
+        :listado="listadoItems"
+        :esAdmin="esAdmin" 
+        :usuario="user"
+        @logout="logout"
+      />
     </div>
   </div>
 </template>
@@ -14,14 +30,19 @@
 /* eslint-disable */ 
 import LoginPage from './views/Login/LoginPage.vue'
 import MainPage from './views/MainPage.vue'
+import RegisterPage from './views/Register/RegisterPage'
 
 export default {
   name: 'App',
   components: {
     LoginPage,
-    MainPage
+    MainPage,
+    RegisterPage
   },
   data() {
+    const user = null
+    const verLogin = true
+    const verRegister = false
     const loginOk = false
     const listadoItems = [
       {
@@ -81,16 +102,52 @@ export default {
         detail: 'Todo detallado sobre el item 3'
       }
     ]
+    const usuariosRegistrados = [
+      {
+        usuario: "Admin",
+        pass: "123",
+        nombre: "Admin",
+        mail: "",
+        esAdmin : true
+      },
+      {
+        usuario: "Cliente",
+        pass: "cliente1",
+        nombre: "Cliente",
+        mail: "cliente@gmail.com",
+        esAdmin : false
+      }
+    ]
+    const esAdmin = false
     return {
+      verLogin,
+      verRegister,
       loginOk,
       Username: 'Proyecto',
       Password: 'Final',
-      listadoItems
+      listadoItems,
+      usuariosRegistrados,
+      esAdmin
     }
   },
   methods: {
-    LoginOk() {
+    LoginOk(usuarioExiste) {
+      this.user = usuarioExiste
+      this.esAdmin = usuarioExiste.esAdmin
+      this.verLogin = false
       this.loginOk = true
+    },
+    Registrarse() {
+      this.verLogin = false
+      this.verRegister = true
+    },
+    RegistroTerminado() {
+      this.verLogin = true
+      this.verRegister = false
+    },
+    logout() {
+      this.loginOk = false
+      this.RegistroTerminado()
     }
   }
 }
@@ -102,12 +159,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 0px;
 }
 
-.divLogin {
+.divLoginRegister {
   width: 50%;
-  margin: 0pt 0pt 0pt 25%;
+  margin: 2pt 0pt 0pt 25%;
   text-align: -webkit-center;
 }
 </style>

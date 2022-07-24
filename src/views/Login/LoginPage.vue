@@ -1,20 +1,27 @@
 <template>
-<div>
-  <div class="form-group col-md-6">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Usuario" v-model="user" class="form-control" />
+  <div>
+    <form @submit.prevent="login">
+      <div class="form-outline mb-4">
+        <label class="form-label">Usuario</label>
+        <input type="text" class="form-control" placeholder="usuario" v-model.trim="user" />
+      </div>
+      <div class="form-outline mb-4">
+        <label class="form-label" >Constraseña</label>
+        <input type="password" class="form-control" placeholder="contraseña" v-model.trim="pass" />
+      </div>
+      <div class="row">
+        <input type="submit" class="btn btn-success btn-block mb-4" value="Login" />
+      </div>
+      <div class="text-center">
+        <p>No tiene usuario? <button type="button" class="btn btn-link" @click="registrarse">Registrarse</button></p>
+      </div>
+    </form>
+    <div v-if="errors.length > 0">
+      <ul>
+        <li v-for="error in errors" :key="error.index" class="listErrors">{{ error }}</li>
+      </ul>
+    </div>
   </div>
-  <div class="form-group col-md-6">
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Password" v-model="pass" class="form-control" />
-  </div>
-  <br />
-  <div class="form-group col-md-6">
-    <button type="button" class="btn btn-success" @click="verificarLogin">Login</button>
-    <div v-if="errorLogin" class="validationError"><i class="pi pi-exclamation-circle"></i> User o Pass incorrectas</div>
-    <div v-if="errorInputs" class="validationError"><i class="pi pi-exclamation-circle"></i> Debe completar ambos campos</div>
-  </div>
-</div>
 </template>
 <script>
 /* eslint-disable */ 
@@ -22,34 +29,61 @@ export default {
   name: 'LoginPage',
   props: {
     Username: String,
-    Password: String
+    Password: String,
+    UsuariosRegistrados: Array
   },
   data() {
     const user = ''
     const pass = ''
-    const errorLogin = false
-    const errorInputs = false
+    const errors = []
+    const usuarioLogged = Object
     return {
       user,
       pass,
-      errorLogin,
-      errorInputs
+      errors
     }
   },
   methods: {
-    verificarLogin() {
-      if(this.user !== '' && this.pass !== '') {
-        this.errorInputs = false
-        if(this.$props.Username === this.user && this.$props.Password === this.pass){
-          this.errorLogin = false
-          this.$emit('LoginOk')
-        }else{
-          this.errorLogin = true
+    login() {
+      this.errors = []
+      if(this.verificarLogin()){
+        if(this.ingresoOk()) {
+          this.user = ''
+          this.pass = ''
+          this.$emit("LoginOk", this.usuarioLogged)
         }
-      }else{
-        this.errorInputs = true
-        this.errorLogin = false
       }
+    },
+    verificarLogin() {
+      if(this.user === "") {
+        this.errors.push("Usuario requerido")
+        return false
+      }
+      if(this.pass === "") {
+        this.errors.push("Contraseña requerida")
+        return false
+      }
+      return true
+    },
+    ingresoOk() {
+      const usuarioExiste = this.$props.UsuariosRegistrados.find(u => u.usuario == this.user)
+      if(usuarioExiste) {
+        if(usuarioExiste.pass === this.pass) {
+          this.usuarioLogged = usuarioExiste
+          return true
+        }else {
+          this.errors.push("Contraseña incorrecta")
+          return false
+        }
+      } else {
+        this.errors.push("Usuario no existe")
+        return false
+      }
+    },
+    registrarse() {
+      this.user = ''
+      this.pass = ''
+      this.$emit("Registrarse")
     }
   }
 }
@@ -76,6 +110,11 @@ button:hover {
 }
 
 .validationError {
+  color: red;
+}
+
+.listErrors {
+  list-style-type: none;
   color: red;
 }
 </style>
