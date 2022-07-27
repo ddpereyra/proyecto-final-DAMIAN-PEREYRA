@@ -5,7 +5,6 @@
       <LoginPage v-show="verLogin"
         :Username="Username" 
         :Password="Password" 
-        :UsuariosRegistrados="usuariosRegistrados"
         @LoginOk="LoginOk" 
         @Registrarse="Registrarse"
       />
@@ -31,6 +30,8 @@
 import LoginPage from './views/Login/LoginPage.vue'
 import MainPage from './views/MainPage.vue'
 import RegisterPage from './views/Register/RegisterPage'
+import userAPI from './api/users'
+import { onMounted } from 'vue'
 
 export default {
   name: 'App',
@@ -110,22 +111,8 @@ export default {
         imagen: 'wrapPollo.jpeg'
       }
     ]
-    const usuariosRegistrados = [
-      {
-        usuario: "Admin",
-        pass: "123",
-        nombre: "Admin",
-        mail: "",
-        esAdmin : true
-      },
-      {
-        usuario: "Cliente",
-        pass: "cliente1",
-        nombre: "Cliente",
-        mail: "cliente@gmail.com",
-        esAdmin : false
-      }
-    ]
+    const usuariosRegistrados = []
+    onMounted(this.getUsers())
     const esAdmin = false
     return {
       verLogin,
@@ -156,6 +143,15 @@ export default {
     logout() {
       this.loginOk = false
       this.RegistroTerminado()
+    },
+    async getUsers(){
+      try {
+        let rawData = await userAPI.getUsers()
+        let data = await rawData.data
+        this.usuariosRegistrados = data
+      } catch (error) {
+        alert(error)
+      }
     }
   }
 }

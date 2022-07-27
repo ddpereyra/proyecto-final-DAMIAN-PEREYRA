@@ -25,6 +25,8 @@
 </template>
 <script>
 /* eslint-disable */ 
+import userAPI from '../../api/users'
+
 export default {
   name: 'LoginPage',
   props: {
@@ -44,10 +46,10 @@ export default {
     }
   },
   methods: {
-    login() {
+    async login() {
       this.errors = []
       if(this.verificarLogin()){
-        if(this.ingresoOk()) {
+        if(await this.ingresoOk()) {
           this.user = ''
           this.pass = ''
           this.$emit("LoginOk", this.usuarioLogged)
@@ -65,20 +67,26 @@ export default {
       }
       return true
     },
-    ingresoOk() {
-      const usuarioExiste = this.$props.UsuariosRegistrados.find(u => u.usuario == this.user)
-      if(usuarioExiste) {
-        if(usuarioExiste.pass === this.pass) {
-          this.usuarioLogged = usuarioExiste
-          return true
-        }else {
-          this.errors.push("Contraseña incorrecta")
+    async ingresoOk() {
+      try {
+        const dataUser = await userAPI.getUserByUserName(this.user)
+        if (dataUser.data.length > 0) {
+          const usuarioExiste = dataUser.data[0]
+          if(usuarioExiste.pass === this.pass) {
+            this.usuarioLogged = usuarioExiste
+            return true
+          }else {
+            this.errors.push("Contraseña incorrecta")
+            return false
+          }
+        } else {
+          this.errors.push("Usuario no existe")
           return false
         }
-      } else {
-        this.errors.push("Usuario no existe")
-        return false
+      } catch (error) {
+        alert(error)
       }
+      
     },
     registrarse() {
       this.user = ''

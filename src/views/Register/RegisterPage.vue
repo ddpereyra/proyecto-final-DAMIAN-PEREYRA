@@ -47,11 +47,9 @@
 
 <script>
 /* eslint-disable */ 
+  import userAPI from '../../api/users'
   export default {
     name: 'RegisterPage',
-    props: {
-        UsuariosRegistrados: Array
-    },
     data() {
         const nombre = ''
         const apellido = ''
@@ -115,24 +113,26 @@
                 }
             }
         },
-        guardarUsuarioNuevo(){
-            if(!this.usuarioExiste()){
+        async guardarUsuarioNuevo(){
+            if(!await this.usuarioExiste()){
+                let users = await userAPI.getUsers()
+                const newUserId = users.data.length + 1
                 const usuarioNuevo = {
+                    id: newUserId,
                     usuario: this.usuario,
                     pass: this.contraseña,
                     nombre: this.nombreCompleto,
                     mail: this.mail,
                     esAdmin : false
                 }
-                this.$props.UsuariosRegistrados.push(usuarioNuevo)
-                return true
+                return userAPI.insertUser(usuarioNuevo)
             }else{
                 return false
             }
         },
-        usuarioExiste(){
-            const usuarioExiste = this.$props.UsuariosRegistrados.find(u => u.usuario === this.usuario)
-            if(usuarioExiste){
+        async usuarioExiste(){
+            const usuarioExiste = await userAPI.getUserByUserName(this.user)
+            if (usuarioExiste.data.length > 0) {
                 this.errors.push({id:"usuario", msg: "El usuario ya existe. Elija otro nombre de usuario"})
                 return true
             }else{
