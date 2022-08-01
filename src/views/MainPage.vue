@@ -2,6 +2,8 @@
     <div>
       <Cabecera
         :usuario="usuario"
+        :esAdmin="esAdmin"
+        @showCart="showCart"
         @logout="logout"
       />
       <h1>Listado de Productos</h1>
@@ -29,7 +31,7 @@
       <div class="row m-5" v-else>
         <h3>No hay productos en existencia</h3>
       </div>
-      <ItemDetail v-if="seeDetail" :producto="producto" :esAdmin="esAdmin" @closeDetail="closeModalDetail" />
+      <ItemDetail v-if="seeDetail" :producto="producto" @closeDetail="closeModalDetail" />
       <ItemMod v-if="seeMod" :producto="producto" :isNew="isNew" @closeDetail="closeModalMod" />
       <ShoppingCart v-if="seeCart" @closeCart="closeModalCart" />
     </div>
@@ -95,7 +97,8 @@ export default {
         this.producto = null
         this.traerProductos()
     },
-    ShowCart() {
+    showCart() {
+        console.log("showCart")
         this.seeCart = true
     },
     closeModalCart() {
@@ -104,9 +107,9 @@ export default {
     logout() {
       this.$emit("logout")
     },
-    eliminarItem(item){
+    async eliminarItem(item){
       if(confirm(`Desea eliminar ${item.title}?`)){
-        productAPI.delProduct(item)
+        await productAPI.delProduct(item)
         this.traerProductos()
       }
     },

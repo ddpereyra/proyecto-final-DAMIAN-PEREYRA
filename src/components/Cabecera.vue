@@ -5,7 +5,7 @@
           Bienvenido {{usuario.nombre}}
         </div>
         <div class="Carrito">
-          <img src="../imgs/cart.png" width="40" style="cursor:pointer;" />
+          <img v-if="!esAdmin" src="../imgs/cart.png" width="40" style="cursor:pointer;" @click="ShowCart" />
         </div>
         <div class="Perfil">
           <img src="../imgs/out.png" width="35" style="cursor:pointer;" @click="Logout" />
@@ -18,9 +18,14 @@
 export default {
   name: 'CabeceraPage',
   props: {
-      usuario: Object
+      usuario: Object,
+      esAdmin: Boolean
   },
   methods: {
+    ShowCart(){
+      console.log("showCart")
+      this.$emit("showCart")
+    },
     Logout(){
       if(confirm("Desea salir?")){
         this.$emit("logout")

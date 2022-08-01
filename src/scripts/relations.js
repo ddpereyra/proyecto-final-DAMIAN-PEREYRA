@@ -5,16 +5,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        carrito: []
+        carrito: [],
+        esAdmin: false
     },
     mutations: {
         agregarAlCarrito: (state, item) => {
             state.carrito.push(item)
+        },
+        setRol: (state, esAdmin) => {
+            state.esAdmin = esAdmin
         }
     },
     actions: {
         setCarrito: ({commit}, item) => {
           commit('agregarAlCarrito', item)
+        },
+        setRol: ({commit}, esAdmin) => {
+          commit('setRol', esAdmin)
         }
     }
 })

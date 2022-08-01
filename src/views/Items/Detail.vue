@@ -12,7 +12,7 @@
                 <p> {{producto.detail}} </p>
                 </div>
                 <div class="modal-footer">
-                    <button v-if="!esAdmin" type="button" class="btn btn-success m-1">Comprar/Agregar</button>
+                    <button type="button" class="btn btn-success m-1">Comprar/Agregar</button>
                 </div>
             </div>
             </div>
@@ -25,8 +25,7 @@
   export default {
     name: 'ItemDetail',
     props: {
-        producto: Object,
-        esAdmin: Boolean
+        producto: Object
     },
     methods: {
         closeDetail(){
