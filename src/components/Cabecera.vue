@@ -5,10 +5,10 @@
           Bienvenido {{usuario.nombre}}
         </div>
         <div class="Carrito">
-          Carrito
+          <img src="../imgs/cart.png" width="40" style="cursor:pointer;" />
         </div>
         <div class="Perfil">
-          <button type="button" class="btn btn-link" @click="Logout" >Logout</button>
+          <img src="../imgs/out.png" width="35" style="cursor:pointer;" @click="Logout" />
         </div>
     </div>
   </div>

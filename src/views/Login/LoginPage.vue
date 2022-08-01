@@ -30,8 +30,6 @@ import userAPI from '../../api/users'
 export default {
   name: 'LoginPage',
   props: {
-    Username: String,
-    Password: String,
     UsuariosRegistrados: Array
   },
   data() {
