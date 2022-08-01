@@ -18,6 +18,7 @@
         :esAdmin="esAdmin" 
         :usuario="user"
         @logout="logout"
+        @traerProductos="getProducts"
       />
     </div>
   </div>

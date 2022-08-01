@@ -38,6 +38,6 @@
 <style>
 .imgDetail {
     width: 300px;
-    header: 300px;
+    height: 300px;
 }
 </style>

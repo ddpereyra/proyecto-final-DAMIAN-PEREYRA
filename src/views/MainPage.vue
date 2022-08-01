@@ -5,6 +5,10 @@
         @logout="logout"
       />
       <h1>Listado de Productos</h1>
+      <div v-if="esAdmin">
+        <h3>Cantidad de Items: {{listado.length}}</h3>
+        <img src="../imgs/addProduct.webp" width="40" style="cursor:pointer;" alt="Agregar producto" @click="addItem" />
+      </div>
       <div class="row m-5" v-if="listado.length > 0">
           <div v-for="(item) in listado" :key="item.id" class="col-sm-3">
               <div class="card m-2 border-success">
@@ -70,6 +74,7 @@ export default {
     closeModalDetail() {
         this.seeDetail = false
         this.producto = null
+        this.traerProductos()
     },
     addItem() {
         this.isNew = true
@@ -86,6 +91,7 @@ export default {
     closeModalMod() {
         this.seeMod = false
         this.producto = null
+        this.traerProductos()
     },
     ShowCart() {
         this.seeCart = true
@@ -100,6 +106,9 @@ export default {
       if(confirm(`Desea eliminar ${item.title}?`)){
         this.$props.listado = this.$props.listado.filter(function(i) { return i !== item })
       }
+    },
+    traerProductos(){
+      this.$emit('traerProductos')
     },
     alert() {
       alert("Entro")
