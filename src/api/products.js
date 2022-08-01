@@ -10,6 +10,8 @@ let productAPI = {
     },
     async addModProduct (product, isNew) {
         try {
+            console.log(product)
+            console.log(isNew)
             if(isNew){
                 const productos = this.getProducts()
                 product.id = productos.length + 1
@@ -23,6 +25,7 @@ let productAPI = {
     },
     async delProduct (product) {
         try {
+            console.log(product)
             await axios.delete(`https://62df41869c47ff309e834551.mockapi.io/api/v1/products/${product.id}`)
         } catch (error) {
             console.log(error)

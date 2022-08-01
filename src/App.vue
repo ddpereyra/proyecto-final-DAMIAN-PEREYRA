@@ -32,6 +32,7 @@ import RegisterPage from './views/Register/RegisterPage'
 import userAPI from './api/users'
 import productAPI from './api/products'
 
+
 export default {
   name: 'App',
   components: {

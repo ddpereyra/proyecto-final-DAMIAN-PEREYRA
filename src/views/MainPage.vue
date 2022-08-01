@@ -13,7 +13,8 @@
           <div v-for="(item) in listado" :key="item.id" class="col-sm-3">
               <div class="card m-2 border-success">
                   <div class="card-body">
-                  <img v-if="item.imagen" class="imgCard" :src="item.imagen">
+                      <span>{{item.id}}</span>
+                      <img v-if="item.imagen" class="imgCard" :src="item.imagen">
                       <h5 class="card-title">{{item.title}}</h5>
                       <p class="card-text">{{item.resume}}</p>
                       <h3 class="card-text text-success">$ {{item.price}}</h3>
@@ -38,6 +39,7 @@ import ItemDetail from './Items/Detail.vue'
 import ItemMod from './Items/Mod.vue'
 import ShoppingCart from './Cart/ShoppingCart.vue'
 import Cabecera from '../components/Cabecera'
+import productAPI from '@/api/products'
 /* eslint-disable */ 
 export default {
   name: 'MainPage',
@@ -104,7 +106,8 @@ export default {
     },
     eliminarItem(item){
       if(confirm(`Desea eliminar ${item.title}?`)){
-        this.$props.listado = this.$props.listado.filter(function(i) { return i !== item })
+        productAPI.delProduct(item)
+        this.traerProductos()
       }
     },
     traerProductos(){

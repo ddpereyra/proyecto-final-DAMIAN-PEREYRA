@@ -65,8 +65,8 @@
         async guardarItem(item){
             if(confirm(`Desea guardar ${item.title}?`)){
                 await productAPI.addModProduct(item, this.itemNuevo)
-                this.itemNuevo = false
             }
+            this.$emit('closeDetail')
         }
     }
 }
