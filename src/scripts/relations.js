@@ -14,6 +14,9 @@ export default new Vuex.Store({
         },
         setRol: (state, esAdmin) => {
             state.esAdmin = esAdmin
+        },
+        getRol(state){
+            return state.esAdmin
         }
     },
     actions: {

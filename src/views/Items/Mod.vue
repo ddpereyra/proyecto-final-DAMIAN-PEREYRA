@@ -63,8 +63,21 @@
             this.$emit('closeDetail')
         },
         async guardarItem(item){
+            if(this.itemNuevo){
+                await this.agregaritem(item)
+            }else{
+                await this.actualizarItem(item)
+            }
+        },
+        async agregaritem(item){
             if(confirm(`Desea guardar ${item.title}?`)){
-                await productAPI.addModProduct(item, this.itemNuevo)
+                await productAPI.addProduct(item)
+            }
+            this.$emit('closeDetail')
+        },
+        async actualizarItem(item){
+            if(confirm(`Desea guardar ${item.title}?`)){
+                await productAPI.modProduct(item)
             }
             this.$emit('closeDetail')
         }

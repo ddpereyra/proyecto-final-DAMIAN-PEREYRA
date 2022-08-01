@@ -8,24 +8,23 @@ let productAPI = {
             console.log(error)
         }
     },
-    async addModProduct (product, isNew) {
+    async addProduct (product) {
         try {
-            console.log(product)
-            console.log(isNew)
-            if(isNew){
-                const productos = this.getProducts()
-                product.id = productos.length + 1
-                await axios.post(`https://62df41869c47ff309e834551.mockapi.io/api/v1/products`, product)
-            }else{
-                await axios.put(`https://62df41869c47ff309e834551.mockapi.io/api/v1/products/${product.id}`, product)
-            }
+            await axios.post(`https://62df41869c47ff309e834551.mockapi.io/api/v1/products`, product)
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    async modProduct (product) {
+        try {
+            //me esta tirando un 404 solo en el put y el item existe. ver. delete funciona
+            await axios.put(`https://62df41869c47ff309e834551.mockapi.io/api/v1/products/${product.id}`, product)
         } catch (error) {
             console.log(error)
         }
     },
     async delProduct (product) {
         try {
-            console.log(product)
             await axios.delete(`https://62df41869c47ff309e834551.mockapi.io/api/v1/products/${product.id}`)
         } catch (error) {
             console.log(error)
