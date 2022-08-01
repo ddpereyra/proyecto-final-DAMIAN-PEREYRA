@@ -8,12 +8,11 @@
                     <button type="button" class="btn-close" aria-label="Close" @click="closeDetail"></button>
                 </div>
                 <div class="modal-body">
-                <img class="imgDetail" :src="require(`../../imgs/Products/${producto.imagen}`)">
-                <textarea rows=4 class="form-control" :value="producto.detail" style="margin: 5pt;resize: none;">
-                </textarea>
+                <img class="imgDetail" :src="producto.imagen">
+                <p> {{producto.detail}} </p>
                 </div>
                 <div class="modal-footer">
-                    <button v-if="!esAdmin" type="button" class="btn btn-success m-1" @click="modificarItem(producto)">Guardar</button>
+                    <button v-if="!esAdmin" type="button" class="btn btn-success m-1">Comprar/Agregar</button>
                 </div>
             </div>
             </div>
@@ -26,16 +25,12 @@
   export default {
     name: 'ItemDetail',
     props: {
-        producto: Object
+        producto: Object,
+        esAdmin: Boolean
     },
     methods: {
         closeDetail(){
             this.$emit('closeDetail')
-        },
-        modificarItem(item){
-            if(confirm(`Desea modificar ${item.title}?`)){
-                alert("modificado")
-            }
         }
     }
 }

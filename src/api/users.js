@@ -17,7 +17,6 @@ let userAPI = {
     },
     async insertUser (user) {
         try {
-            console.log(user)
             await axios.post(`https://62df41869c47ff309e834551.mockapi.io/api/v1/users`, user)
             return true
         } catch (error) {
