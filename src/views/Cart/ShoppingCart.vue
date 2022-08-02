@@ -1,15 +1,8 @@
 <template>
     <div>
-        <div class="modal show" style="display: block;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-danger">EN DESARROLLO</h5>
-                        <button type="button" class="btn-close" aria-label="Close" @click="closeCart"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        En Desarrollo
+
+        <button @click="closeCart">Volver</button>
     </div>
 </template>
 
