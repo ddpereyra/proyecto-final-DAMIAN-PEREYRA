@@ -8,7 +8,7 @@
       />
       <div v-if="showMain">
         <h1>Listado de Productos</h1>
-        <div v-if="esAdmin">
+        <div v-if="$store.state.esAdmin">
           <h3>Cantidad de Items: {{listado.length}}</h3>
           <img src="../imgs/addProduct.webp" width="40" style="cursor:pointer;" alt="Agregar producto" @click="addItem" />
         </div>
@@ -21,10 +21,10 @@
                         <h5 class="card-title">{{item.title}}</h5>
                         <p class="card-text">{{item.resume}}</p>
                         <h3 class="card-text text-success">$ {{item.price}}</h3>
-                        <button v-if="!esAdmin" type="button" class="btn btn-info m-1" @click="showDetail(item)">Ver detalle</button>
-                        <button v-if="!esAdmin" type="button" class="btn btn-success m-1" @click="alert()">Comprar/Agregar</button>
-                        <button v-if="esAdmin" type="button" class="btn btn-warning m-1" @click="modItem(item)">Modificar</button>
-                        <button v-if="esAdmin" type="button" class="btn btn-danger m-1" @click="eliminarItem(item)">Eliminar</button>
+                        <button v-if="!$store.state.esAdmin" type="button" class="btn btn-info m-1" @click="showDetail(item)">Ver detalle</button>
+                        <button v-if="!$store.state.esAdmin" type="button" class="btn btn-success m-1" @click="alert()">Comprar/Agregar</button>
+                        <button v-if="$store.state.esAdmin" type="button" class="btn btn-warning m-1" @click="modItem(item)">Modificar</button>
+                        <button v-if="$store.state.esAdmin" type="button" class="btn btn-danger m-1" @click="eliminarItem(item)">Eliminar</button>
                     </div>
                 </div>
             </div>

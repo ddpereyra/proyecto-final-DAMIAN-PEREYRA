@@ -7,7 +7,6 @@
         @Registrarse="Registrarse"
       />
       <RegisterPage v-show="verRegister"
-        :UsuariosRegistrados="usuariosRegistrados"
         @RegistroTerminado="RegistroTerminado"
         @Login="logout"
       />
@@ -15,7 +14,6 @@
     <div class="divMain" v-if="loginOk">
       <MainPage 
         :listado="listadoItems"
-        :esAdmin="esAdmin" 
         :usuario="user"
         @logout="logout"
         @traerProductos="getProducts"
@@ -47,14 +45,13 @@ export default {
     const loginOk = false
     const listadoItems = []
     const usuariosRegistrados = []
-    const esAdmin = false
     return {
       verLogin,
       verRegister,
       loginOk,
       listadoItems,
       usuariosRegistrados,
-      esAdmin
+      user
     }
   },
   mounted() {
@@ -64,7 +61,7 @@ export default {
   methods: {
     LoginOk(usuarioExiste) {
       this.user = usuarioExiste
-      this.esAdmin = usuarioExiste.esAdmin
+      this.$store.commit('setRol', usuarioExiste.esAdmin)
       this.verLogin = false
       this.loginOk = true
     },

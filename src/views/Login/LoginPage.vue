@@ -15,6 +15,7 @@
       <div class="text-center">
         <p>No tiene usuario? <button type="button" class="btn btn-link" @click="registrarse">Registrarse</button></p>
       </div>
+      {{$store.state.esAdmin}}
     </form>
     <div v-if="errors.length > 0">
       <ul>
